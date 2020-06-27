@@ -1,0 +1,25 @@
+﻿@model Darbuotojai.Application.ViewModels.DarbuotojaiViewModel
+
+@{
+    Layout = null;
+}
+
+<table id="book" class="table table-bordered table-hover">
+    <thead>
+        <tr class="">
+            <th>Name</th>
+            <th>ISBN</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var darbuotojas in Model.Darbuotojai)
+        {
+            <tr style="height: 60px;">
+                <td>@darbuotojas.Vardas</td>
+                @* <td>@darbuotojas.ISBN</td> *@
+                @* <td>@darbuotojas.AuthorName</td> *@
+            </tr>
+        }
+    </tbody>
+</table>
