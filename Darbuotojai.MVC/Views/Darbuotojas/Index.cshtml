@@ -3,18 +3,11 @@
     ViewData["Title"] = "Darbuotojai CRUD";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
+<h1>Darbuotojai</h1>
 
 @using (Html.BeginForm())
 {
-    <p>
-
-        <div class="row">
+    <div class="row">
             <div class="col-6 col-sm-3">
 
                 @if ((string) ViewData["filtras"] == "visi")
@@ -47,8 +40,6 @@
                     </label>
                 }
 
-
-
             </div>
 
             <div class="w-100"></div>
@@ -62,16 +53,12 @@
                 {
                     <label class="radio-inline"><input value="neAktyvus" id="neAktyvus" type="radio" name="filtras" onchange="this.form.submit()"> Neaktyvūs</label>
                 }
-
-
             </div>
         </div>
-
-
-        <input type="submit" value="Search"/>
-
-    </p>
 }
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 
 <table class="table">
     <thead>
