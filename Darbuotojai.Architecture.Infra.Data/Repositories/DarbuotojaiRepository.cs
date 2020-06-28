@@ -87,5 +87,12 @@ namespace Darbuotojai.Architecture.Infra.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<List<Darbuotojas>> GetFiltered(bool filtras)
+        {
+            return await _context.Darbuotojai
+                .Where(x => x.Aktyvus == filtras)
+                .ToListAsync();
+        }
+
     }
 }

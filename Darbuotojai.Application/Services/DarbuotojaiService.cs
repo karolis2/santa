@@ -12,6 +12,7 @@ namespace Darbuotojai.Application.Services
     public interface IDarbuotojaiService
     {
         Task<List<DarbuotojasDto>> GetDarbuotojai();
+        Task<List<DarbuotojasDto>> GetFiltered(bool filtras);
 
         Task Create(string vardas, string pavarde, string asmensKodas, DateTime gimimoData, int namoNr,
             string gatve, string miestas, string pastoKodas, bool aktyvus);
@@ -32,6 +33,27 @@ namespace Darbuotojai.Application.Services
         public DarbuotojaiService(IDarbuotojaiRepository darbuotojaiRepository)
         {
             _darbuotojaiRepository = darbuotojaiRepository;
+        }
+
+        public async Task<List<DarbuotojasDto>> GetFiltered(bool filtras)
+        {
+            var darbuotojai = await _darbuotojaiRepository.GetFiltered(filtras);
+
+            return darbuotojai
+                .Select(x => new DarbuotojasDto
+                {
+                    Id = x.Id,
+                    Vardas = x.Vardas,
+                    Pavardė = x.Pavardė,
+                    AsmensKodas = x.AsmensKodas,
+                    GimimoData = x.GimimoData,
+                    NamoNumeris = x.NamoNumeris,
+                    Gatve = x.Gatve,
+                    Miestas = x.Miestas,
+                    PastoKodas = x.PastoKodas,
+                    Aktyvus = x.Aktyvus
+                })
+                .ToList();
         }
 
         public async Task<List<DarbuotojasDto>> GetDarbuotojai()

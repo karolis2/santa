@@ -2,8 +2,6 @@
 @{
     ViewData["Title"] = "Darbuotojai CRUD";
 }
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 
 <h1>Index</h1>
 
@@ -11,59 +9,106 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-<div class="row">
-    <div class="col-6 col-sm-3">
-        <label class="radio-inline"><input value="visi" id="visi" type="radio" name="filtras" checked> Visi Darbuotojai</label>
-    </div>
-    <div class="w-100"></div>
 
-    <div class="col-6 col-sm-3">
-        <label class="radio-inline"><input value="aktyvus" id="aktyvus" type="radio" name="filtras"> Aktyvūs</label>
+@using (Html.BeginForm())
+{
+    <p>
 
-    </div>
+        <div class="row">
+            <div class="col-6 col-sm-3">
 
-    <div class="w-100"></div>
+                @if ((string) ViewData["filtras"] == "visi")
+                {
+                    <label class="radio-inline">
+                        <input value="visi" id="visi" type="radio" name="filtras" checked onchange="this.form.submit()"> Visi Darbuotojai
+                    </label>
+                }
+                else
+                {
+                    <label class="radio-inline">
+                        <input value="visi" id="visi" type="radio" name="filtras" onchange="this.form.submit()"> Visi Darbuotojai
+                    </label>
+                }
+            </div>
+            <div class="w-100"></div>
 
-    <div class="col-6 col-sm-3">
-        <label class="radio-inline"><input value="neAktyvus" id="neAktyvus" type="radio" name="filtras"> Neaktyvūs</label>
-    </div>
-</div>
+            <div class="col-6 col-sm-3">
+
+                @if ((string) ViewData["filtras"] == "aktyvus")
+                {
+                    <label class="radio-inline">
+                        <label class="radio-inline"><input value="aktyvus" id="aktyvus" type="radio" name="filtras" checked onchange="this.form.submit()"> Aktyvūs</label>
+                    </label>
+                }
+                else
+                {
+                    <label class="radio-inline">
+                        <label class="radio-inline"><input value="aktyvus" id="aktyvus" type="radio" name="filtras" onchange="this.form.submit()"> Aktyvūs</label>
+                    </label>
+                }
+
+
+
+            </div>
+
+            <div class="w-100"></div>
+
+            <div class="col-6 col-sm-3">
+                @if ((string) ViewData["filtras"] == "neAktyvus")
+                {
+                    <label class="radio-inline"><input value="neAktyvus" id="neAktyvus" type="radio" name="filtras" checked onchange="this.form.submit()"> Neaktyvūs</label>
+                }
+                else
+                {
+                    <label class="radio-inline"><input value="neAktyvus" id="neAktyvus" type="radio" name="filtras" onchange="this.form.submit()"> Neaktyvūs</label>
+                }
+
+
+            </div>
+        </div>
+
+
+        <input type="submit" value="Search"/>
+
+    </p>
+}
 
 <table class="table">
     <thead>
     <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Vardas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pavardė)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AsmensKodas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GimimoData.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NamoNumeris)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gatve)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Miestas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PastoKodas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Aktyvus)
-            </th>
-            <th></th>
-        </tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Vardas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pavardė)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AsmensKodas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GimimoData.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NamoNumeris)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gatve)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Miestas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PastoKodas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Aktyvus)
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Vardas)
@@ -75,7 +120,7 @@
                 @Html.DisplayFor(modelItem => item.AsmensKodas)
             </td>
             <td>
-                 @item.GimimoData.ToString("yyyy-mm-dd")
+                @item.GimimoData.ToString("yyyy-mm-dd")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NamoNumeris)
@@ -94,40 +139,10 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
                 @* <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> *@
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>
-
-@section scripts
-{
-    
-<script>
-    
-    $('input[type=radio][name=filtras]').change(function() {
-        if (this.value === 'visi') {
-                                        $.ajax(
-                                            {
-                                                url: '@Url.Action("DeleteAllEmailsFromDb")',
-                                                type: 'POST',
-                                                cache: false,
-                                                data: {},
-                                                success: function() {  
-                                                $('#email-container').empty();
-                                                $("#email-list-container").load('@Url.Action("AddEmailsListPartialView")');  
-                                            }
-        }
-        else if (this.value === 'aktyvus') {
-            console.log("akt")
-        }
-        else if (this.value === 'neAktyvus') {
-            console.log("aktne")
-                }
-    });
-    
-</script>
-
-}

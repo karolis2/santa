@@ -4,11 +4,7 @@ using Darbuotojai.Domain.Models;
 
 namespace Darbuotojai.Application.ViewModels
 {
-    public class DarbuotojaiViewModel
-    {
-        public List<Darbuotojas> Darbuotojai { get; set; }
-    }
-    
+
     public class DarbuotojasDto
     {
         public int Id { get; set; }

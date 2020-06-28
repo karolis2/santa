@@ -8,6 +8,8 @@ namespace Darbuotojai.Domain
     public interface IDarbuotojaiRepository
     {
         Task<List<Darbuotojas>> GetDarbuotojai();
+        
+        Task<List<Darbuotojas>> GetFiltered(bool filtras);
 
         Task<Darbuotojas> GetDetails(int id);
         

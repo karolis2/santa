@@ -19,9 +19,31 @@ namespace Darbuotojai.MVC.Controllers
         
         
         // GET: Darbuotojas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string filtras)
         {
+            
             var model = await _darbuotojaiService.GetDarbuotojai();
+            
+            ViewData["filtras"] = "visi";
+            
+            if (!string.IsNullOrEmpty(filtras))
+            {
+                if (filtras == "aktyvus")
+                {
+                    model = await _darbuotojaiService.GetFiltered(true);
+                    ViewData["filtras"] = "aktyvus";
+                }
+
+                if (filtras == "neAktyvus")
+                {
+                    model = await _darbuotojaiService.GetFiltered(false);
+                    ViewData["filtras"] = "neAktyvus";
+                }
+                
+                
+            }
+            
+            
             
             return View(model);
         }
