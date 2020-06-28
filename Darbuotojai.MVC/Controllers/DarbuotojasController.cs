@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Darbuotojai.Application.Services;
 using Darbuotojai.Application.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Darbuotojai.Architecture.Infra.Data;
-using Darbuotojai.Domain.Models;
 
 namespace Darbuotojai.MVC.Controllers
 {
@@ -23,7 +18,6 @@ namespace Darbuotojai.MVC.Controllers
         }
         
         
-
         // GET: Darbuotojas
         public async Task<IActionResult> Index()
         {

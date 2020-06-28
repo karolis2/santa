@@ -23,19 +23,5 @@ namespace Darbuotojai.Application.ViewModels
         public bool Aktyvus { get; set; }
         
     }
-    
-    public class EditDarbuotojasDto
-    {
-        public int? Id { get; set; }
-        public string Vardas { get; set; }
-        public string Pavardė { get; set; }
-        public string AsmensKodas { get; set; }
-        public DateTime GimimoData { get; set; }
-        public int NamoNumeris { get; set; }
-        public string Gatve { get; set; }
-        public string Miestas { get; set; }
-        public string PastoKodas { get; set; }
-        public bool Aktyvus { get; set; }
-    }
-    
+
 }

@@ -2,15 +2,36 @@
 @{
     ViewData["Title"] = "Darbuotojai CRUD";
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 <h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<div class="row">
+    <div class="col-6 col-sm-3">
+        <label class="radio-inline"><input value="visi" id="visi" type="radio" name="filtras" checked> Visi Darbuotojai</label>
+    </div>
+    <div class="w-100"></div>
+
+    <div class="col-6 col-sm-3">
+        <label class="radio-inline"><input value="aktyvus" id="aktyvus" type="radio" name="filtras"> Aktyvūs</label>
+
+    </div>
+
+    <div class="w-100"></div>
+
+    <div class="col-6 col-sm-3">
+        <label class="radio-inline"><input value="neAktyvus" id="neAktyvus" type="radio" name="filtras"> Neaktyvūs</label>
+    </div>
+</div>
+
 <table class="table">
     <thead>
-        <tr>
+    <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Vardas)
             </th>
@@ -21,7 +42,7 @@
                 @Html.DisplayNameFor(model => model.AsmensKodas)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GimimoData)
+                @Html.DisplayNameFor(model => model.GimimoData.Date)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NamoNumeris)
@@ -54,7 +75,7 @@
                 @Html.DisplayFor(modelItem => item.AsmensKodas)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GimimoData)
+                 @item.GimimoData.ToString("yyyy-mm-dd")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NamoNumeris)
@@ -73,10 +94,40 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                @* <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> *@
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+@section scripts
+{
+    
+<script>
+    
+    $('input[type=radio][name=filtras]').change(function() {
+        if (this.value === 'visi') {
+                                        $.ajax(
+                                            {
+                                                url: '@Url.Action("DeleteAllEmailsFromDb")',
+                                                type: 'POST',
+                                                cache: false,
+                                                data: {},
+                                                success: function() {  
+                                                $('#email-container').empty();
+                                                $("#email-list-container").load('@Url.Action("AddEmailsListPartialView")');  
+                                            }
+        }
+        else if (this.value === 'aktyvus') {
+            console.log("akt")
+        }
+        else if (this.value === 'neAktyvus') {
+            console.log("aktne")
+                }
+    });
+    
+</script>
+
+}
